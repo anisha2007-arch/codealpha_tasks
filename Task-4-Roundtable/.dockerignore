@@ -1,0 +1,18 @@
+# Keeps secrets and host-built artefacts out of the image layers. Without this,
+# COPY . . bakes .env into the image and overwrites the Alpine-built
+# node_modules with whatever the host machine happened to install.
+node_modules
+npm-debug.log*
+*.log
+
+.env
+.env.*
+!.env.example
+
+.git
+.gitignore
+.dockerignore
+
+# The suites run on the host with `npm test`; the runtime image has no use
+# for them.
+test

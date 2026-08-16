@@ -1,0 +1,170 @@
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+.room-card {
+  display: block;
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-decoration: none;
+}
+
+.room-card:hover { border-color: var(--accent); }
+.room-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.room-card h2 { margin: 0 0 4px; font-size: 1.05rem; }
+
+.room-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 22px 14px;
+}
+
+.room-bar h1 { margin: 4px 0 2px; font-size: 1.35rem; }
+.back { color: var(--muted); font-size: 0.85rem; text-decoration: none; }
+.back:hover { color: var(--accent); }
+.room-actions { display: flex; gap: 10px; }
+
+.status { margin: 0; color: var(--muted); font-size: 0.86rem; }
+.status.ok { color: var(--ok); }
+.status.bad { color: var(--danger); }
+/* Something is wrong but recoverable: a socket that dropped, a peer being
+   reconnected. Deliberately not the positive colour — the call is not fine. */
+.status.warn { color: #d2a03c; }
+
+/* Persistent, not a toast: while this is on screen, whatever is on the shared
+   display is going to everyone in the room. */
+.sharing-note {
+  margin: 0 0 12px;
+  padding: 9px 14px;
+  border: 1px solid #d2a03c;
+  border-radius: var(--radius);
+  background: rgb(210 160 60 / 12%);
+  color: #e8c887;
+  font-size: 0.86rem;
+}
+
+.room-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 22px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 22px 60px;
+  align-items: start;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.tile {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+
+.tile video { width: 100%; height: 100%; object-fit: cover; }
+
+.tile figcaption {
+  position: absolute;
+  left: 10px;
+  bottom: 9px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: rgba(13, 16, 19, 0.72);
+  font-size: 0.8rem;
+}
+
+.controls { display: flex; flex-wrap: wrap; gap: 9px; margin: 16px 0; }
+
+.pill {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.pill:hover { border-color: var(--accent); }
+.pill.on { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.pill.off { color: var(--danger); border-color: var(--danger); }
+.file-pill { display: inline-flex; align-items: center; }
+
+.board-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.palette { display: flex; gap: 8px; }
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: var(--swatch);
+  cursor: pointer;
+}
+
+.swatch.on { border-color: var(--text); }
+
+#board {
+  display: block;
+  width: 100%;
+  height: 380px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #11161b;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.roster { margin: 0; padding: 0; list-style: none; }
+
+.roster li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 0.9rem;
+}
+
+.transfer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.86rem;
+}
+
+.transfer progress { width: 90px; }
+.transfer a { color: var(--accent); }
+
+@media (max-width: 940px) {
+  .room-layout, .two-column { grid-template-columns: 1fr; }
+}

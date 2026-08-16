@@ -1,0 +1,184 @@
+/* Shared across every page of Roundtable: the palette, the page frame, the
+   controls, and the notices. The per-page stylesheet layers on top of this and
+   never redefines any of it.
+
+   Deliberately one file. These four projects each have their own theme, and
+   splitting a hundred and fifty lines of it into a dozen partials would mean a
+   dozen more <link> tags in an app whose whole point is that it has no build
+   step. Section banners do the job that splitting would have done. */
+
+/* Palette ----------------------------------------------------------------*/
+
+:root {
+  --bg: #0d1013;
+  --surface: #161b21;
+  --surface-2: #1f262e;
+  --text: #e8ecf1;
+  --muted: #8b96a3;
+  --line: #2b333c;
+  --accent: #d98b4a;
+  --accent-soft: #3a2a1c;
+  --danger: #e06a5c;
+  --ok: #6fc79b;
+  --radius: 9px;
+}
+
+/* Document and typography ------------------------------------------------*/
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3 { margin: 0 0 10px; line-height: 1.25; }
+a { color: inherit; }
+
+/* Page frame -------------------------------------------------------------*/
+
+.page { max-width: 980px; margin: 0 auto; padding: 26px 20px 60px; }
+.page.narrow { max-width: 400px; }
+.page-title { font-size: 1.6rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+
+/* Top bar ----------------------------------------------------------------*/
+
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+
+.bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 22px;
+  min-height: 56px;
+}
+
+.wordmark { font-size: 1.15rem; font-weight: 650; text-decoration: none; }
+.bar-right { display: flex; align-items: center; gap: 16px; font-size: 0.9rem; }
+.who { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Avatars ----------------------------------------------------------------*/
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: hsl(var(--hue) 40% 40%);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.avatar.tiny { width: 25px; height: 25px; font-size: 0.66rem; }
+
+/* Panels -----------------------------------------------------------------*/
+
+.panel {
+  padding: 18px;
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* Buttons ----------------------------------------------------------------*/
+
+.btn {
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #14181c;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover { background: #e8a066; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.block { display: block; width: 100%; margin-top: 16px; }
+.btn.ghost { background: none; color: var(--text); border-color: var(--line); }
+.btn.ghost:hover { background: var(--surface-2); }
+.btn.ghost.danger { color: var(--danger); }
+
+.link-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.86rem;
+  cursor: pointer;
+}
+
+.link-btn:hover { color: var(--text); }
+
+/* Forms ------------------------------------------------------------------*/
+
+label { display: block; margin-top: 14px; color: var(--muted); font-size: 0.86rem; }
+
+input, textarea, select {
+  width: 100%;
+  margin-top: 5px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+
+/* Tags and notices -------------------------------------------------------*/
+
+.tag {
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.74rem;
+}
+
+.alert {
+  padding: 10px 13px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: #3a221f;
+  color: var(--danger);
+  font-size: 0.88rem;
+}
+
+.empty { padding: 44px 20px; text-align: center; color: var(--muted); }
+.switch-row { margin: 18px 0 0; font-size: 0.88rem; text-align: center; }
+
+/* Toast ------------------------------------------------------------------*/
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  font-size: 0.88rem;
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+}
+
+.toast.visible { opacity: 1; transform: translate(-50%, 0); }

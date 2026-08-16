@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roundtable</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/room.css" />
+</head>
+<body>
+  <div data-header></div>
+
+  <main class="page two-column">
+    <div>
+      <h1 class="page-title">Rooms</h1>
+      <div id="rooms"></div>
+    </div>
+
+    <aside>
+      <form class="panel" id="new-room">
+        <h2>Start a room</h2>
+        <label for="r-name">Name</label>
+        <input id="r-name" name="name" maxlength="60" placeholder="Monday catch-up" required />
+        <button class="btn block" type="submit">Create and join</button>
+      </form>
+
+      <form class="panel" id="join-room">
+        <h2>Join with a link</h2>
+        <label for="r-link">Room link or code</label>
+        <input id="r-link" name="link" placeholder="monday-catch-up-4f2a91" required />
+        <button class="btn ghost block" type="submit">Join</button>
+      </form>
+    </aside>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/html.js"></script>
+  <script src="/js/format.js"></script>
+  <script src="/js/chrome.js"></script>
+  <script src="/js/rooms.js"></script>
+</body>
+</html>

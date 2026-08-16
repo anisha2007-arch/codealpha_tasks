@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room · Roundtable</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/room.css" />
+</head>
+<body class="in-room">
+  <div data-header></div>
+
+  <div class="room-bar">
+    <div>
+      <a class="back" href="/">All rooms</a>
+      <h1 id="room-name">Room</h1>
+      <p class="status" id="status">Setting up…</p>
+    </div>
+    <div class="room-actions">
+      <button class="btn ghost" id="copy-link">Copy link</button>
+      <button class="btn ghost danger" id="leave">Leave</button>
+    </div>
+  </div>
+
+  <main class="room-layout">
+    <section>
+      <p class="sharing-note" id="sharing-note" hidden>
+        You are sharing your screen with everyone in this room.
+      </p>
+
+      <div class="grid" id="grid"></div>
+
+      <div class="controls">
+        <button class="pill" id="mic">Microphone on</button>
+        <button class="pill" id="cam">Camera on</button>
+        <button class="pill" id="share">Share screen</button>
+        <button class="pill" id="board-toggle">Whiteboard</button>
+        <label class="pill file-pill">
+          Send a file
+          <input type="file" id="file" hidden />
+        </label>
+      </div>
+
+      <div class="panel" id="board-panel" hidden>
+        <div class="board-head">
+          <div class="palette" id="palette"></div>
+          <button class="link-btn" id="board-clear">Clear board</button>
+        </div>
+        <canvas id="board"></canvas>
+      </div>
+    </section>
+
+    <aside>
+      <div class="panel">
+        <h2>In this room (<span id="peer-count">1</span>)</h2>
+        <ul class="roster" id="roster"></ul>
+      </div>
+
+      <div class="panel">
+        <h2>Files</h2>
+        <p class="muted small">Files are sent straight to the other browsers, never through the server.</p>
+        <div id="files"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/html.js"></script>
+  <script src="/js/format.js"></script>
+  <script src="/js/chrome.js"></script>
+  <script src="/js/signal.js"></script>
+  <script src="/js/peer-recovery.js"></script>
+  <script src="/js/peer-negotiation.js"></script>
+  <script src="/js/peers.js"></script>
+  <script src="/js/media.js"></script>
+  <script src="/js/tiles.js"></script>
+  <script src="/js/whiteboard.js"></script>
+  <script src="/js/channel-flow.js"></script>
+  <script src="/js/board-sync.js"></script>
+  <script src="/js/transfer.js"></script>
+  <script src="/js/transfer-list.js"></script>
+  <script src="/js/channel-messages.js"></script>
+  <script src="/js/room-controls.js"></script>
+  <script src="/js/room.js"></script>
+</body>
+</html>
