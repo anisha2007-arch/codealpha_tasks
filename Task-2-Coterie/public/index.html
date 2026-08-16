@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coterie</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div data-header></div>
+
+  <main class="container two-column">
+    <div>
+      <form class="composer panel" id="composer">
+        <textarea name="body" rows="3" maxlength="800" placeholder="What is going on?" required></textarea>
+        <div class="composer-foot">
+          <select name="circle" aria-label="Post to a circle">
+            <option value="">No circle</option>
+          </select>
+          <button class="btn" type="submit">Post</button>
+        </div>
+      </form>
+
+      <div class="scope" id="scope">
+        <button class="chip-btn active" data-scope="home">Following</button>
+        <button class="chip-btn" data-scope="explore">Everyone</button>
+      </div>
+
+      <div id="feed"></div>
+    </div>
+
+    <aside>
+      <div class="panel">
+        <h2>People to follow</h2>
+        <div id="people"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/html.js"></script>
+  <script src="/js/format.js"></script>
+  <script src="/js/chrome.js"></script>
+  <script src="/js/comment-thread.js"></script>
+  <script src="/js/post-card.js"></script>
+  <script src="/js/feed.js"></script>
+</body>
+</html>

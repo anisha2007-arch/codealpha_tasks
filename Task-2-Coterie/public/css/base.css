@@ -1,0 +1,204 @@
+/* Shared across every page of Coterie: the palette, the page frame, the
+   controls, and the notices. The per-page stylesheet layers on top of this and
+   never redefines any of it.
+
+   Deliberately one file. These four projects each have their own theme, and
+   splitting a hundred and fifty lines of it into a dozen partials would mean a
+   dozen more <link> tags in an app whose whole point is that it has no build
+   step. Section banners do the job that splitting would have done. */
+
+/* Palette ----------------------------------------------------------------*/
+
+:root {
+  --bg: #101418;
+  --surface: #171c22;
+  --surface-2: #1e242b;
+  --text: #e6e9ec;
+  --muted: #8f9aa6;
+  --line: #2a3239;
+  --accent: #6aa9ff;
+  --accent-dim: #23364f;
+  --danger: #ff7b6b;
+  --radius: 10px;
+}
+
+/* Document and typography ------------------------------------------------*/
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3 { margin: 0 0 10px; line-height: 1.25; }
+a { color: inherit; }
+
+/* Page frame -------------------------------------------------------------*/
+
+.container { max-width: 1040px; margin: 0 auto; padding: 24px 20px 60px; }
+.container.narrow { max-width: 420px; }
+.container.reading-width { max-width: 640px; }
+.page-title { font-size: 1.7rem; }
+.lead { margin: 0 0 20px; color: var(--muted); }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+
+/* Top bar ----------------------------------------------------------------*/
+
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+
+.topbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 20px;
+  min-height: 60px;
+}
+
+.wordmark { font-size: 1.2rem; font-weight: 600; text-decoration: none; letter-spacing: 0.02em; }
+.topbar nav { display: flex; align-items: center; gap: 18px; font-size: 0.92rem; }
+.topbar nav a { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; }
+.topbar nav a:hover { color: var(--accent); }
+
+/* Avatars ----------------------------------------------------------------*/
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: hsl(var(--hue) 42% 34%);
+  color: #fff;
+  font-weight: 600;
+}
+
+.avatar.tiny { width: 26px; height: 26px; font-size: 0.8rem; }
+.avatar.large { width: 76px; height: 76px; font-size: 1.7rem; }
+
+/* Panels -----------------------------------------------------------------*/
+
+.panel {
+  padding: 20px;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* Buttons ----------------------------------------------------------------*/
+
+.btn {
+  padding: 9px 18px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #0d1117;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover { background: #85b9ff; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.small { padding: 6px 13px; font-size: 0.85rem; }
+.btn.block { display: block; width: 100%; margin-top: 18px; }
+.btn.ghost { background: none; color: var(--muted); box-shadow: inset 0 0 0 1px var(--line); }
+
+.chip-btn {
+  padding: 5px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.chip-btn:hover { color: var(--text); }
+.chip-btn.on, .chip-btn.active { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+
+.link-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.link-btn:hover { color: var(--text); }
+.link-btn.danger:hover { color: var(--danger); }
+
+/* Forms ------------------------------------------------------------------*/
+
+label { display: block; margin-top: 14px; color: var(--muted); font-size: 0.87rem; }
+
+input, textarea, select {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  resize: vertical;
+}
+
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+
+/* Notices ----------------------------------------------------------------*/
+
+.alert {
+  padding: 10px 13px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: #3a1f1c;
+  color: var(--danger);
+  font-size: 0.88rem;
+}
+
+.empty { padding: 48px 20px; text-align: center; color: var(--muted); }
+.switch-row { margin: 18px 0 0; font-size: 0.88rem; text-align: center; }
+
+/* Dialogs ----------------------------------------------------------------*/
+
+dialog {
+  width: min(420px, 92vw);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+dialog::backdrop { background: rgba(0, 0, 0, 0.55); }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+/* Toast ------------------------------------------------------------------*/
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  font-size: 0.9rem;
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+}
+
+.toast.visible { opacity: 1; transform: translate(-50%, 0); }

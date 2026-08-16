@@ -1,0 +1,22 @@
+{
+  "name": "coterie",
+  "version": "1.0.0",
+  "description": "A small social app built around circles, posts, comments, likes, and follows.",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.9"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "dev": "node --watch --env-file-if-exists=.env server/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1"
+  }
+}
