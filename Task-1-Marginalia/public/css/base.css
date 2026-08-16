@@ -1,0 +1,182 @@
+/* Shared across every page of Marginalia: the palette, the page frame, the
+   controls, and the notices. The per-page stylesheet layers on top of this and
+   never redefines any of it.
+
+   Deliberately one file. These four projects each have their own theme, and
+   splitting a hundred and fifty lines of it into a dozen partials would mean a
+   dozen more <link> tags in an app whose whole point is that it has no build
+   step. Section banners do the job that splitting would have done. */
+
+/* Palette ----------------------------------------------------------------*/
+
+:root {
+  --paper: #f7f4ed;
+  --card: #fffdf8;
+  --ink: #241f1a;
+  --muted: #7a7066;
+  --line: #e0d8c9;
+  --accent: #7b3f2e;
+  --accent-soft: #f0e3dd;
+  --danger: #9c2f22;
+  --ok: #2f6b45;
+  --radius: 6px;
+}
+
+/* Document and typography ------------------------------------------------*/
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.6 Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 12px; font-weight: 600; }
+a { color: inherit; }
+
+/* Page frame -------------------------------------------------------------*/
+
+.container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+.container.narrow { max-width: 460px; }
+.page-title { margin: 32px 0 20px; font-size: 1.9rem; }
+
+/* Masthead ---------------------------------------------------------------*/
+
+.masthead {
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+
+.masthead .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 68px;
+}
+
+.wordmark {
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.masthead nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 0.95rem;
+}
+
+.masthead nav a { text-decoration: none; }
+.masthead nav a:hover { color: var(--accent); }
+
+.badge {
+  display: inline-block;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 11px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+/* Buttons ----------------------------------------------------------------*/
+
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover { background: #632f21; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn.small { padding: 6px 12px; font-size: 0.85rem; }
+.btn.block { display: block; width: 100%; margin-top: 16px; }
+.btn.ghost { background: none; color: var(--accent); }
+.btn.ghost:hover { background: var(--accent-soft); }
+
+.link-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-btn:hover { color: var(--accent); }
+
+/* Forms ------------------------------------------------------------------*/
+
+label { display: block; margin-top: 14px; font-size: 0.9rem; color: var(--muted); }
+
+input {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+input:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+
+/* Panels and notices -----------------------------------------------------*/
+
+.panel {
+  padding: 22px;
+  margin-bottom: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.notice { padding: 28px 0; color: var(--muted); text-align: center; }
+.notice.empty { padding: 56px 20px; }
+.hint { margin: 8px 0 0; color: var(--muted); font-size: 0.85rem; }
+
+.alert {
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  border-left: 3px solid var(--danger);
+  border-radius: var(--radius);
+  background: #fbeeec;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+.alert.success { border-left-color: var(--ok); background: #eef5f0; color: var(--ok); }
+
+/* Toast ------------------------------------------------------------------*/
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 0.9rem;
+  transform: translate(-50%, 20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+}
+
+.toast.visible { opacity: 1; transform: translate(-50%, 0); }

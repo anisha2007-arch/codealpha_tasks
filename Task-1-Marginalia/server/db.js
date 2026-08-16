@@ -1,0 +1,27 @@
+const fs = require('fs');
+const path = require('path');
+const { Pool } = require('pg');
+const config = require('./config');
+
+const pool = new Pool({ connectionString: config.databaseUrl });
+const SCHEMA_FILE = path.join(__dirname, '..', 'db', 'schema.sql');
+
+let ready = null;
+
+// db/schema.sql owns the tables and the catalogue. Compose runs the database
+// separately from this process, so the app applies the schema itself on boot.
+function init() {
+  if (!ready) {
+    ready = pool.query(fs.readFileSync(SCHEMA_FILE, 'utf8')).catch((err) => {
+      ready = null;
+      throw err;
+    });
+  }
+  return ready;
+}
+
+function query(text, params) {
+  return pool.query(text, params);
+}
+
+module.exports = { init, query, pool };
