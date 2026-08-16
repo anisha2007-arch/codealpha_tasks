@@ -1,0 +1,60 @@
+const Api = (() => {
+  let cachedUser;
+
+  // Identifies this browser tab, not this person. Every request carries it and
+  // every broadcast carries it back, so a tab can tell its own change apart
+  // from somebody else's without ignoring the same person's other tab.
+  const clientId = (window.crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : `c${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`;
+
+  async function request(path, method = 'GET', body) {
+    const headers = { 'X-Client-Id': clientId };
+    if (body !== undefined) headers['Content-Type'] = 'application/json';
+
+    const res = await fetch(`/api${path}`, {
+      method,
+      headers,
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+      credentials: 'same-origin',
+    });
+
+    if (res.status === 204) return null;
+
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw new Error((data && data.error) || `Request failed (${res.status})`);
+    return data;
+  }
+
+  async function currentUser() {
+    if (cachedUser !== undefined) return cachedUser;
+    try {
+      cachedUser = (await request('/me')).user;
+    } catch {
+      cachedUser = null;
+    }
+    return cachedUser;
+  }
+
+  // Sends anyone without a session to the sign-in page, remembering where
+  // they were headed.
+  async function requireUser() {
+    const user = await currentUser();
+    if (!user) {
+      window.location.href = `/login.html?next=${encodeURIComponent(location.pathname + location.search)}`;
+    }
+    return user;
+  }
+
+  return {
+    get: (p) => request(p),
+    post: (p, body) => request(p, 'POST', body),
+    put: (p, body) => request(p, 'PUT', body),
+    patch: (p, body) => request(p, 'PATCH', body),
+    del: (p) => request(p, 'DELETE'),
+    currentUser,
+    requireUser,
+    setUser: (user) => { cachedUser = user; },
+    clientId,
+  };
+})();

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Board · Sightline</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/board.css" />
+  <link rel="stylesheet" href="/css/notifications.css" />
+</head>
+<body>
+  <div data-header></div>
+
+  <div class="board-bar">
+    <div>
+      <a class="back" href="/">All projects</a>
+      <h1 id="project-name">Board</h1>
+      <p class="muted small" id="project-description"></p>
+    </div>
+    <div class="board-actions">
+      <span class="live-status off" id="live-status">Connecting…</span>
+      <button class="btn ghost" id="open-members">People</button>
+      <button class="btn" id="add-task">New task</button>
+    </div>
+  </div>
+
+  <main class="board" id="board"></main>
+
+  <dialog id="task-dialog">
+    <form>
+      <div class="dialog-head">
+        <h2>Task</h2>
+        <button class="link-btn" type="button" data-close>Close</button>
+      </div>
+
+      <label for="t-title">Title</label>
+      <input id="t-title" name="title" maxlength="120" required />
+
+      <label for="t-body">Details</label>
+      <textarea id="t-body" name="body" rows="4" maxlength="2000"></textarea>
+
+      <div class="field-row">
+        <div>
+          <label for="t-status">Column</label>
+          <!-- Filled from GET /api/columns, so the board's columns are
+               defined in server/statuses.js and nowhere else. -->
+          <select id="t-status" name="status"></select>
+        </div>
+        <div>
+          <label for="t-assignee">Assigned to</label>
+          <select id="t-assignee" name="assigneeId"></select>
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button class="link-btn danger" type="button" data-delete>Delete task</button>
+        <button class="btn" type="submit">Save</button>
+      </div>
+    </form>
+
+    <section data-comment-section hidden>
+      <h3>Discussion</h3>
+      <div data-comments></div>
+      <form class="comment-form" data-comment-form>
+        <input name="body" placeholder="Add a comment" maxlength="800" required />
+        <button class="btn small" type="submit">Send</button>
+      </form>
+    </section>
+  </dialog>
+
+  <dialog id="members-dialog">
+    <div class="dialog-head">
+      <h2>People on this project</h2>
+      <button class="link-btn" type="button" data-close>Close</button>
+    </div>
+    <div data-member-list></div>
+    <form>
+      <label for="m-email">Add someone by email</label>
+      <input id="m-email" name="email" type="email" placeholder="name@example.com" required />
+      <button class="btn block" type="submit">Add to project</button>
+    </form>
+  </dialog>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/html.js"></script>
+  <script src="/js/format.js"></script>
+  <script src="/js/chrome.js"></script>
+  <script src="/js/live.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/comment-thread.js"></script>
+  <script src="/js/task-dialog.js"></script>
+  <script src="/js/members.js"></script>
+  <script src="/js/board-dnd.js"></script>
+  <script src="/js/board.js"></script>
+</body>
+</html>

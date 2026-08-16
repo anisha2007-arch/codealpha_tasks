@@ -1,0 +1,217 @@
+/* Shared across every page of Sightline: the palette, the page frame, the
+   controls, and the notices. The per-page stylesheet layers on top of this and
+   never redefines any of it.
+
+   Deliberately one file. These four projects each have their own theme, and
+   splitting a hundred and fifty lines of it into a dozen partials would mean a
+   dozen more <link> tags in an app whose whole point is that it has no build
+   step. Section banners do the job that splitting would have done.
+
+   The exception is a component that has its own script and is not on every
+   page: notifications.css goes with notifications.js, the way board.css goes
+   with board.js. That is a different thing from carving the shared controls
+   into partials, which is what the paragraph above is about. */
+
+/* Palette ----------------------------------------------------------------*/
+
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef1f4;
+  --text: #1c2229;
+  --muted: #6b7784;
+  --line: #dbe1e7;
+  --accent: #2f6f5e;
+  --accent-soft: #e2efea;
+  --danger: #b23a2c;
+  --radius: 8px;
+}
+
+/* Document and typography ------------------------------------------------*/
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3 { margin: 0 0 10px; line-height: 1.25; }
+a { color: inherit; }
+
+/* Page frame -------------------------------------------------------------*/
+
+.page { max-width: 1000px; margin: 0 auto; padding: 26px 20px 60px; }
+.page.narrow { max-width: 400px; }
+.page-title { font-size: 1.6rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+
+/* Top bar ----------------------------------------------------------------*/
+
+.topbar { border-bottom: 1px solid var(--line); background: var(--surface); }
+
+.bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 22px;
+  min-height: 56px;
+}
+
+.wordmark { font-size: 1.15rem; font-weight: 650; text-decoration: none; }
+.bar-right { display: flex; align-items: center; gap: 16px; font-size: 0.9rem; }
+.who { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Avatars ----------------------------------------------------------------*/
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: hsl(var(--hue) 38% 42%);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.avatar.tiny { width: 26px; height: 26px; font-size: 0.68rem; }
+
+/* Panels -----------------------------------------------------------------*/
+
+.panel {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* Buttons ----------------------------------------------------------------*/
+
+.btn {
+  padding: 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn:hover { background: #275c4e; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.small { padding: 5px 12px; font-size: 0.83rem; }
+.btn.block { display: block; width: 100%; margin-top: 18px; }
+.btn.ghost { background: var(--surface); color: var(--accent); }
+.btn.ghost:hover { background: var(--accent-soft); }
+
+.link-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.87rem;
+  cursor: pointer;
+}
+
+.link-btn:hover { color: var(--text); }
+.link-btn.danger:hover { color: var(--danger); }
+
+/* Forms ------------------------------------------------------------------*/
+
+label { display: block; margin-top: 14px; color: var(--muted); font-size: 0.86rem; }
+
+input, textarea, select {
+  width: 100%;
+  margin-top: 5px;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  resize: vertical;
+}
+
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+
+/* Tags and notices -------------------------------------------------------*/
+
+.tag {
+  padding: 2px 9px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.alert {
+  padding: 10px 13px;
+  margin-bottom: 12px;
+  border-radius: var(--radius);
+  background: #fbeae7;
+  color: var(--danger);
+  font-size: 0.88rem;
+}
+
+.empty { padding: 48px 20px; text-align: center; color: var(--muted); }
+.switch-row { margin: 18px 0 0; font-size: 0.88rem; text-align: center; }
+
+/* Dialogs ----------------------------------------------------------------*/
+
+dialog {
+  width: min(520px, 94vw);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+}
+
+dialog::backdrop { background: rgba(28, 34, 41, 0.45); }
+
+.dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Toast ------------------------------------------------------------------*/
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  background: var(--text);
+  color: #fff;
+  font-size: 0.88rem;
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.18s;
+}
+
+.toast.visible { opacity: 1; transform: translate(-50%, 0); }

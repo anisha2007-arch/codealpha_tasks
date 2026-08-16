@@ -1,0 +1,68 @@
+/* The header's alert badge and the panel behind it: the stylesheet for
+   public/js/notifications.js, the way board.css is the stylesheet for
+   board.js. Loaded only by the pages that mount it, which is why it is not in
+   base.css -- and it is a component with its own script, not one of the shared
+   controls base.css is for. */
+
+.notif { position: relative; }
+
+.notif-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.notif-button:hover { color: var(--accent); }
+
+/* Any author `display` beats the UA sheet's `[hidden] { display: none }`
+   whatever the specificity, so an element toggled by the `hidden` attribute
+   has to opt back out explicitly. Without this the badge sat in the header of
+   every page as a red 0. */
+.notif-badge[hidden] { display: none; }
+
+.notif-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.notif-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 20;
+  width: 300px;
+  max-height: 340px;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 10px 28px rgb(0 0 0 / 12%);
+}
+
+.notif-row {
+  display: block;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.notif-row:last-child { border-bottom: 0; }
+.notif-row:hover { background: var(--surface-2); }
+.notif-row.unread { background: var(--accent-soft); }
+.notif-row span { display: block; }
+.notif-empty { padding: 14px 12px; margin: 0; }

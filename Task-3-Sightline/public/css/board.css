@@ -1,0 +1,145 @@
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 26px;
+  align-items: start;
+}
+
+.project-card {
+  display: block;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-decoration: none;
+}
+
+.project-card:hover { border-color: var(--accent); }
+.project-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.project-card h2 { margin: 0; font-size: 1.05rem; }
+.project-card p { margin: 6px 0 10px; color: var(--muted); font-size: 0.9rem; }
+
+.board-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 22px 22px 16px;
+}
+
+.board-bar h1 { margin: 4px 0 2px; font-size: 1.4rem; }
+.back { color: var(--muted); font-size: 0.85rem; text-decoration: none; }
+.back:hover { color: var(--accent); }
+.board-actions { display: flex; align-items: center; gap: 10px; }
+
+.live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.live-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.live-status.live { color: var(--accent); }
+.live-status.live::before { background: var(--accent); }
+
+/* Reconnected, but the board has not been re-fetched yet: not green, because
+   what is on screen may already be out of date. */
+.live-status.sync { color: #8a6d1f; }
+.live-status.sync::before { background: #c79a24; }
+
+/* The number of columns comes from the server now, so the grid works out how
+   many it is being given rather than assuming four. */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 22px 60px;
+  align-items: start;
+}
+
+.column {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+
+.column.over { border-color: var(--accent); background: var(--accent-soft); }
+
+.column header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.column h2 { margin: 0; font-size: 0.92rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+
+.count {
+  padding: 1px 8px;
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.cards { display: flex; flex-direction: column; gap: 10px; min-height: 60px; }
+
+.card {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.card:hover { border-color: var(--accent); }
+.card.dragging { opacity: 0.4; }
+.card-title { margin: 0 0 10px; font-size: 0.93rem; }
+
+.card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+#task-dialog section { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+#task-dialog h3 { font-size: 0.95rem; }
+
+.comment { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; }
+.comment .name { font-weight: 600; font-size: 0.88rem; margin-right: 8px; }
+.comment p { margin: 2px 0 0; font-size: 0.9rem; overflow-wrap: anywhere; }
+
+.comment-form { display: flex; gap: 9px; margin-top: 12px; }
+.comment-form input { margin-top: 0; }
+
+.member { display: flex; align-items: center; gap: 11px; padding: 9px 0; border-bottom: 1px solid var(--line); }
+.member > div { display: flex; flex-direction: column; flex: 1; line-height: 1.35; }
+.member .name { font-size: 0.92rem; }
+
+@media (max-width: 1000px) {
+  .board { grid-template-columns: repeat(2, minmax(200px, 1fr)); }
+  .two-column { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  .board { grid-template-columns: 1fr; }
+  .field-row { grid-template-columns: 1fr; }
+}
